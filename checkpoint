@@ -1,0 +1,2 @@
+model_checkpoint_path: "/Users/carlosbarbero/classificacao/model.tflearn"
+all_model_checkpoint_paths: "/Users/carlosbarbero/classificacao/model.tflearn"
