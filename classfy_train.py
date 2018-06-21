@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import nltk
 from nltk.stem.lancaster import LancasterStemmer
 import numpy as np
@@ -9,12 +10,8 @@ import string
 import unicodedata
 import sys
 
-nltk.download('punkt')
-
-
 # a table structure to hold the different punctuation used
-tbl = dict.fromkeys(i for i in range(sys.maxunicode)
-                    if unicodedata.category(chr(i)).startswith('P'))
+tbl = dict.fromkeys(i for i in range(sys.maxunicode)  if unicodedata.category(chr(i)).startswith('P'))
 
 # method to remove punctuations from sentences.
 def remove_punctuation(text):
@@ -101,26 +98,24 @@ net = tflearn.regression(net)
 # Define model and setup tensorboard
 model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
 # Start training (apply gradient descent algorithm)
-#model.fit(train_x, train_y, n_epoch=1000, batch_size=8, show_metric=True)
-#model.save('model.tflearn')
-model.load('./model.tflearn')
+model.fit(train_x, train_y, n_epoch=1000, batch_size=8, show_metric=True)
+model.save('model.tflearn')
+#model.load('./model.tflearn')
 
 
 
-# let's test the mdodel for a few sentences:
-# the first two sentences are used for training, and the last two sentences are not present in the training data.
-sent_5 = "nota fiscal são paulo"
+
+
+
 sent_6 = "registro geral de são paulo"
 sent_7 = "registro geral"
-sent_8 = "registro geral janeiro"
+sent_8 = "registro geral rio  de janeiro"
 
 
 
 
 # a method that takes in a sentence and list of all words
 # and returns the data in a form the can be fed to tensorflow
-
-
 def get_tf_record(sentence):
     global words
     # tokenize the pattern
@@ -138,8 +133,6 @@ def get_tf_record(sentence):
 
 
 # we can start to predict the results for each of the 4 sentences
-print(categories[np.argmax(model.predict([get_tf_record(sent_5)]))])
 print(categories[np.argmax(model.predict([get_tf_record(sent_6)]))])
 print(categories[np.argmax(model.predict([get_tf_record(sent_7)]))])
 print(categories[np.argmax(model.predict([get_tf_record(sent_8)]))])
-print(np.argmax(model.predict([get_tf_record(sent_8)])))
